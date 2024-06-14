@@ -1,0 +1,17 @@
+# This file is just a mockup for a shitty language
+
+# Define a comment
+
+test: string = "This is a simple string"
+
+
+copy_file(
+    from="./test.txt", 
+    to="something.test"
+)
+
+test2: list = (
+    "foo",
+    "bar",
+    "baz"
+)
