@@ -144,7 +144,11 @@ proc main() =
     # get the file path for test file
     const filePath = "/workspace/exemples/mocks/test.mot"
     # read the file
+    echo "### BASE FILE ###\n"
     let source = readFile(filePath)
+    echo source
+
+    echo "\n\n### LEXER ###\n"
     # create a lexer
     var lexer = initLexer[TokenKind](source)
     addCharConfig[TokenKind](lexer, handleSpace, @[' '])
@@ -156,12 +160,11 @@ proc main() =
     addCharConfig[TokenKind](lexer, handleSimpleChar, @[';', ','], separator)
     addCharConfig[TokenKind](lexer, handleUntilEOL, @['#'], comment)
     addCharConfig[TokenKind](lexer, handleBetween, @['"'], STRING)
-
     lexer.lex()
     for token in lexer.tokens:
         echo token
 
-    echo "### PARSER ###"
+    echo "\n\n### Abstract Syntax Tree ###\n"
     # create a context
     var context: Context[Node, TokenKind]
     context.tokens = lexer.tokens
